@@ -2,7 +2,15 @@ from django.db import models
 
 
 class SecurityReport(models.Model):
-    target_type = models.CharField(max_length=20, choices=[('file', 'File'), ('url', 'URL'), ('domain', 'Domain'), ('ip', 'IP Address')])
+    target_type = models.CharField(
+        max_length=20,
+        choices=[
+            ("file", "File"),
+            ("url", "URL"),
+            ("domain", "Domain"),
+            ("ip", "IP Address"),
+        ],
+    )
     target_value = models.CharField(max_length=255)
     report_generated_at = models.DateTimeField(auto_now_add=True)
     # Add more fields as needed
@@ -46,13 +54,17 @@ class Vulnerability(models.Model):
 class Incident(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     description = models.TextField()
-    status = models.CharField(max_length=20, choices=[('open', 'Open'), ('closed', 'Closed')])
+    status = models.CharField(
+        max_length=20, choices=[("open", "Open"), ("closed", "Closed")]
+    )
     # Add more fields as needed
 
 
 class MaliciousItem(models.Model):
     incident = models.ForeignKey(Incident, on_delete=models.CASCADE)
-    item_type = models.CharField(max_length=20, choices=[('file', 'File'), ('url', 'URL'), ('ip', 'IP Address')])
+    item_type = models.CharField(
+        max_length=20, choices=[("file", "File"), ("url", "URL"), ("ip", "IP Address")]
+    )
     value = models.CharField(max_length=255)
     detection_result = models.JSONField()
     # Add more fields as needed
