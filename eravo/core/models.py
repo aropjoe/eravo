@@ -41,3 +41,18 @@ class Vulnerability(models.Model):
     description = models.TextField()
     severity = models.CharField(max_length=10)
     # Add more fields as needed
+
+
+class Incident(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    description = models.TextField()
+    status = models.CharField(max_length=20, choices=[('open', 'Open'), ('closed', 'Closed')])
+    # Add more fields as needed
+
+
+class MaliciousItem(models.Model):
+    incident = models.ForeignKey(Incident, on_delete=models.CASCADE)
+    item_type = models.CharField(max_length=20, choices=[('file', 'File'), ('url', 'URL'), ('ip', 'IP Address')])
+    value = models.CharField(max_length=255)
+    detection_result = models.JSONField()
+    # Add more fields as needed
