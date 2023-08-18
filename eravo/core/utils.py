@@ -1,4 +1,7 @@
 import requests
+from .models import SecurityReport, ScanResult, MaliciousItem
+from .integrations import fetch_virustotal_data
+
 
 VIRUSTOTAL_API_KEY = 'your_api_key_here'
 
