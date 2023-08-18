@@ -15,6 +15,9 @@ class ScanResult(models.Model):
     detected = models.BooleanField()
     threat_name = models.CharField(max_length=100)
     scan_engine = models.CharField(max_length=100)
+    security_report = models.ForeignKey(SecurityReport, on_delete=models.CASCADE)
+    data_source = models.CharField(max_length=100)
+    report_data = models.JSONField()
 
 
 class GeographicOrigin(models.Model):
