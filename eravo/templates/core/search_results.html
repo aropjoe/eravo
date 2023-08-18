@@ -1,0 +1,17 @@
+<!-- search_results.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IOC Search Results</title>
+</head>
+<body>
+    <h1>IOC Search Results</h1>
+    <p>Query: {{ ioc_search.query }}</p>
+    <ul>
+        {% for result in results %}
+            <li>{{ result }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
