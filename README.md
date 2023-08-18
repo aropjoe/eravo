@@ -24,6 +24,10 @@ It facilitates the creation of incident records, enables the submission of poten
 - Submit files, URLs, or IP addresses for analysis during security incidents.
 - Retrieve insights and analysis results from multiple security data sources.
 - View incident details, including submitted malicious items and their analysis results.
+- Perform quick searches for IOCs such as files, URLs, or IP addresses in VirusTotal's database.
+- View search results and insights obtained from VirusTotal's scans.
+- Maintain a record of past IOC search queries for historical reference.
+
 
 
 ## Getting Started
