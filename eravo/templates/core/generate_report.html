@@ -1,0 +1,16 @@
+<!-- generate_report.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Security Report</title>
+</head>
+<body>
+    <h1>Generate Security Report</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Generate Report</button>
+    </form>
+</body>
+</html>
