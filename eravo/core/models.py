@@ -68,3 +68,9 @@ class MaliciousItem(models.Model):
     value = models.CharField(max_length=255)
     detection_result = models.JSONField()
     # Add more fields as needed
+
+
+class IOCSearch(models.Model):
+    query = models.CharField(max_length=255)
+    search_time = models.DateTimeField(auto_now_add=True)
+    # Add more fields as needed
