@@ -1,0 +1,20 @@
+<!-- incident_details.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Incident Details</title>
+</head>
+<body>
+    <h1>Incident Details</h1>
+    <h2>Description: {{ incident.description }}</h2>
+    <h3>Status: {{ incident.status }}</h3>
+    <h3>Malicious Items:</h3>
+    <ul>
+        {% for malicious_item in incident.maliciousitem_set.all %}
+            <li>{{ malicious_item.item_type }}: {{ malicious_item.value }}</li>
+            <li>Detection Result: {{ malicious_item.detection_result }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
