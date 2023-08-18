@@ -15,4 +15,6 @@ urlpatterns = [
     path("report/<int:security_report_id>/", views.view_report, name="view_report"),
     path("create/", views.create_incident, name="create_incident"),
     path("incident/<int:incident_id>/", views.view_incident, name="view_incident"),
+    path('search/', views.search_iocs, name='search_iocs'),
+    path('history/', views.view_search_history, name='view_search_history'),
 ]
