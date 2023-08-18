@@ -1,0 +1,18 @@
+<!-- report.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Security Report</title>
+</head>
+<body>
+    <h1>Security Report</h1>
+    <h2>Target: {{ security_report.target_type }} - {{ security_report.target_value }}</h2>
+    <ul>
+        {% for result in security_report.scanresult_set.all %}
+            <li>Data Source: {{ result.data_source }}</li>
+            <li>Report Data: {{ result.report_data }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
