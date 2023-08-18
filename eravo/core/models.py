@@ -1,6 +1,13 @@
 from django.db import models
 
 
+class SecurityReport(models.Model):
+    target_type = models.CharField(max_length=20, choices=[('file', 'File'), ('url', 'URL'), ('domain', 'Domain'), ('ip', 'IP Address')])
+    target_value = models.CharField(max_length=255)
+    report_generated_at = models.DateTimeField(auto_now_add=True)
+    # Add more fields as needed
+
+
 class ScanResult(models.Model):
     scan_id = models.CharField(max_length=100, unique=True)
     timestamp = models.DateTimeField(auto_now_add=True)
