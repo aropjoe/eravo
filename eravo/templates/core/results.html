@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vulnerability Analysis Results</title>
+</head>
+<body>
+    <h1>Vulnerability Analysis Results for {{ software.name }} {{ software.version }}</h1>
+    <ul>
+        {% for vulnerability in vulnerabilities %}
+            <li>
+                <strong>Severity:</strong> {{ vulnerability.severity }}<br>
+                <strong>Description:</strong> {{ vulnerability.description }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
