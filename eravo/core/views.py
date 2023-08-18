@@ -1,9 +1,13 @@
 import requests
-from .models import ScanResult
+from .models import ScanResult, Software, Vulnerability
 from django.http import HttpResponse
 import json
 import time
 from .forms import ScanForm
+from django.shortcuts import render
+from .utils import fetch_vulnerability_data
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
 
 
 VIRUSTOTAL_API_KEY = 'your_api_key_here'
@@ -70,3 +74,57 @@ def populate_scan_results(request):
         form = ScanForm()
 
     return render(request, 'populate_scan_results.html', {'form': form})
+
+
+def software_input(request):
+    if request.method == 'POST':
+        software_name = request.POST.get('software_name')
+        software_version = request.POST.get('software_version')
+        software = Software.objects.get_or_create(name=software_name, version=software_version)
+        vulnerability_data = fetch_vulnerability_data(software_name, software_version)
+        vulnerabilities = []
+
+        for vuln in vulnerability_data:
+            vulnerability = Vulnerability.objects.create(
+                software=software,
+                description=vuln['description'],
+                severity=vuln['severity']
+            )
+            vulnerabilities.append(vulnerability)
+
+        return render(request, 'results.html', {'software': software, 'vulnerabilities': vulnerabilities})
+
+    return render(request, 'input.html')
+
+
+@api_view(['POST'])
+def analyze_installed_apps(request):
+    if request.method == 'POST':
+        apps = request.data.get('apps', [])
+        # Process the received apps and perform vulnerability analysis
+        # Return analysis results as JSON response
+        return JsonResponse({"results": "vulnerability_analysis_results"})
+
+
+def check_phishing(url):
+    url = f"https://www.virustotal.com/api/v3/urls/{url}"
+    headers = {
+        'x-apikey': VIRUSTOTAL_API_KEY
+    }
+
+    response = requests.get(url, headers=headers)
+    data = response.json()
+
+    if 'data' in data:
+        attributes = data['data']['attributes']
+        if 'last_analysis_stats' in attributes:
+            if attributes['last_analysis_stats']['malicious'] > 0:
+                return "Potentially phishing"
+        return "Safe"
+    else:
+        return "Unknown"
+
+#if __name__ == "__main__":
+#    url = input("Enter the URL to check: ")
+#    result = check_phishing(url)
+#    print(f"URL: {url} - Status: {result}")
