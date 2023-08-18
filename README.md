@@ -1,8 +1,7 @@
 # Eravo
+Eravo is a powerful Django application designed to streamline incident response in the realm of cybersecurity. With a focus on providing real-time insights, it empowers security professionals to swiftly assess the maliciousness of files, URLs, and IP addresses during security incidents. 
 
-Eravo is a Django dashboard application that aggregates information from VirusTotal scans, displaying trends in malware detection, commonly targeted industries, geographic origins of threats, and more.
-
-It also streamlines incident response by providing instant insights into the maliciousness of files, URLs, or IP addresses during security incidents. It allows users to create incident records, submit potentially malicious items, and retrieve analysis results from various security data sources.
+It facilitates the creation of incident records, enables the submission of potentially harmful items for analysis, and delivers comprehensive analysis results from diverse security data sources. By offering a centralized platform for incident management and threat evaluation, Eravo enhances the efficiency and effectiveness of incident response workflows, enabling proactive defense against emerging cybersecurity threats.
 
 ## Table of Contents
 - [Features](#features)
