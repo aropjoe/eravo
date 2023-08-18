@@ -1,0 +1,16 @@
+<!-- search_iocs.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search IOCs</title>
+</head>
+<body>
+    <h1>Search IOCs</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html>
