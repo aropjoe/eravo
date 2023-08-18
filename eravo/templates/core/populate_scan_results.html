@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Populate Scan Results - Eravo</title>
+</head>
+<body>
+    <h1>Populate Scan Results - Eravo</h1>
+    <form method="post">
+        {% csrf_token %}
+        SHA256: <input type="text" name="sha256" required>
+        <button type="submit">Fetch and Save</button>
+    </form>
+</body>
+</html>
