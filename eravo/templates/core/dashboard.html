@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eravo Dashboard</title>
+</head>
+<body>
+    <h1>Malware Detection Trends</h1>
+    <ul>
+        {% for trend in malware_trends %}
+            <li>{{ trend.detected }}: {{ trend.count }}</li>
+        {% endfor %}
+    </ul>
+
+    <h1>Geographic Origins of Threats</h1>
+    <ul>
+        {% for origin in geographic_origins %}
+            <li>{{ origin.country }}: {{ origin.count }}</li>
+        {% endfor %}
+    </ul>
+
+    <h1>Commonly Targeted Industries</h1>
+    <ul>
+        {% for industry in industry_targets %}
+            <li>{{ industry.industry }}: {{ industry.count }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
