@@ -6,16 +6,18 @@ from .models import (
     SecurityReport,
     Incident,
     MaliciousItem,
+    IOCSearch,
 )
 from django.http import HttpResponse
 import json
 import time
-from .forms import ScanForm, SecurityReportForm, IncidentForm, MaliciousItemForm
+from .forms import ScanForm, SecurityReportForm, IncidentForm, MaliciousItemForm, IOCSearchForm
 from django.shortcuts import render, get_object_or_404
 from .utils import (
     fetch_vulnerability_data,
     generate_security_report,
     analyze_malicious_item,
+    search_iocs_in_virustotal,
 )
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
@@ -184,3 +186,22 @@ def create_incident(request):
 def view_incident(request, incident_id):
     incident = get_object_or_404(Incident, id=incident_id)
     return render(request, "incident_details.html", {"incident": incident})
+
+
+def search_iocs(request):
+    if request.method == 'POST':
+        form = IOCSearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            ioc_search = IOCSearch.objects.create(query=query)
+            results = search_iocs_in_virustotal(query)
+            return render(request, 'search_results.html', {'ioc_search': ioc_search, 'results': results})
+    else:
+        form = IOCSearchForm()
+
+    return render(request, 'search_iocs.html', {'form': form})
+
+
+def view_search_history(request):
+    search_history = IOCSearch.objects.all()
+    return render(request, 'search_history.html', {'search_history': search_history})
