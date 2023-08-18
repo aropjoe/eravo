@@ -1,0 +1,17 @@
+<!-- create_incident.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Incident</title>
+</head>
+<body>
+    <h1>Create Incident</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ incident_form.as_p }}
+        {{ malicious_item_form.as_p }}
+        <button type="submit">Create Incident</button>
+    </form>
+</body>
+</html>
