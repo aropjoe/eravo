@@ -1,11 +1,11 @@
 import requests
-from .models import ScanResult, Software, Vulnerability
+from .models import ScanResult, Software, Vulnerability, SecurityReport, Incident, MaliciousItem
 from django.http import HttpResponse
 import json
 import time
-from .forms import ScanForm
-from django.shortcuts import render
-from .utils import fetch_vulnerability_data
+from .forms import ScanForm, SecurityReportForm, IncidentForm, MaliciousItemForm
+from django.shortcuts import render, get_object_or_404
+from .utils import fetch_vulnerability_data, generate_security_report, analyze_malicious_item
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 
@@ -128,3 +128,40 @@ def check_phishing(url):
 #    url = input("Enter the URL to check: ")
 #    result = check_phishing(url)
 #    print(f"URL: {url} - Status: {result}")
+
+
+def generate_report(request):
+    if request.method == 'POST':
+        form = SecurityReportForm(request.POST)
+        if form.is_valid():
+            target_type = form.cleaned_data['target_type']
+            target_value = form.cleaned_data['target_value']
+            security_report = generate_security_report(target_type, target_value)
+            return render(request, 'report.html', {'security_report': security_report})
+    else:
+        form = SecurityReportForm()
+
+    return render(request, 'generate_report.html', {'form': form})
+
+
+def create_incident(request):
+    if request.method == 'POST':
+        incident_form = IncidentForm(request.POST)
+        malicious_item_form = MaliciousItemForm(request.POST)
+        if incident_form.is_valid() and malicious_item_form.is_valid():
+            incident = incident_form.save()
+            malicious_item = malicious_item_form.save(commit=False)
+            malicious_item.incident = incident
+            malicious_item.save()
+            analyze_malicious_item(malicious_item)
+            return render(request, 'incident_details.html', {'incident': incident})
+    else:
+        incident_form = IncidentForm()
+        malicious_item_form = MaliciousItemForm()
+
+    return render(request, 'create_incident.html', {'incident_form': incident_form, 'malicious_item_form': malicious_item_form})
+
+
+def view_incident(request, incident_id):
+    incident = get_object_or_404(Incident, id=incident_id)
+    return render(request, 'incident_details.html', {'incident': incident})
