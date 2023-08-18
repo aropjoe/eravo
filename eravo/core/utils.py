@@ -54,3 +54,19 @@ def fetch_detection_result(item_type, value):
     # Implement logic to fetch detection result using security data sources
     # Return a dictionary containing detection insights
     return {"insights": "detection_insights"}
+
+
+
+def search_iocs_in_virustotal(query):
+    url = f"https://www.virustotal.com/api/v3/intelligence/search?query={query}"
+    headers = {
+        'x-apikey': VIRUSTOTAL_API_KEY,
+    }
+
+    response = requests.get(url, headers=headers)
+    data = response.json()
+
+    if 'data' in data:
+        return data['data']
+    else:
+        return []
