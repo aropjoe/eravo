@@ -27,3 +27,9 @@ class MaliciousItemForm(forms.ModelForm):
     class Meta:
         model = MaliciousItem
         fields = ("item_type", "value", "detection_result")
+
+
+class IOCSearchForm(forms.ModelForm):
+    class Meta:
+        model = IOCSearch
+        fields = ('query',)
