@@ -2,6 +2,8 @@
 
 Eravo is a Django dashboard application that aggregates information from VirusTotal scans, displaying trends in malware detection, commonly targeted industries, geographic origins of threats, and more.
 
+It also streamlines incident response by providing instant insights into the maliciousness of files, URLs, or IP addresses during security incidents. It allows users to create incident records, submit potentially malicious items, and retrieve analysis results from various security data sources.
+
 ## Table of Contents
 - [Features](#features)
 - [Getting Started](#getting-started)
@@ -19,6 +21,11 @@ Eravo is a Django dashboard application that aggregates information from VirusTo
 - Visualize geographic origins of threats.
 - Integrate with VirusTotal API for real-time data retrieval.
 - Provide a user-friendly dashboard for easy data exploration.
+- Create incident records with descriptions and status.
+- Submit files, URLs, or IP addresses for analysis during security incidents.
+- Retrieve insights and analysis results from multiple security data sources.
+- View incident details, including submitted malicious items and their analysis results.
+
 
 ## Getting Started
 
