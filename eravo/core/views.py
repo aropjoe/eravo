@@ -21,6 +21,8 @@ from .utils import (
 )
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
+from urllib.parse import urlencode 
+from urllib.request import Request, urlopen
 
 
 VIRUSTOTAL_API_KEY = "your_api_key_here"
@@ -205,3 +207,12 @@ def search_iocs(request):
 def view_search_history(request):
     search_history = IOCSearch.objects.all()
     return render(request, 'search_history.html', {'search_history': search_history})
+
+
+def vuln_database:
+    URL = 'https://vuldb.com/?api'
+    post_fields	= { 'apikey': '533680da468b895f696cb8577f7433ba', 'id': '242174', 'details': '1' }	#request
+    
+    request = Request(url, urlencode(post_fields).encode())
+    json = urlopen(request).read().decode()
+    print(json)
